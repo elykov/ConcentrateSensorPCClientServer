@@ -1,0 +1,298 @@
+﻿<Window x:Class="PacketDisplayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PacketDisplayer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1000">
+    <Window.Resources>
+        <Style x:Key="baseStyle">
+            <Setter Property="Control.FontSize" Value="14"/>
+            <Setter Property="Control.FontFamily" Value="Times New Roman"/>
+        </Style>
+
+        <Style TargetType="Label" BasedOn="{StaticResource baseStyle}"/>
+
+        <Style TargetType="TextBox" BasedOn="{StaticResource baseStyle}"/>
+
+        <Style TargetType="TextBlock" BasedOn="{StaticResource baseStyle}"/>
+
+        <Style TargetType="Button" BasedOn="{StaticResource baseStyle}"/>
+
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Header="Sending info">
+            <StackPanel>
+                <Label>Up = 100; Down = 200; Sum = 300; DumpSum = 400;</Label>
+                <Label Margin="0 0 0 5">I_trowel = 10; I_revers = 20; Dump  = 30; period_answer = 40;</Label>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label>Concentration</Label>
+                    <TextBox Name="txtboxSendConc">1.5</TextBox>
+                </StackPanel>
+
+                <GroupBox Header="Parametres" Margin="0 5 0 10">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left">A:</Label>
+                                <TextBox Name="txtboxSendA">1</TextBox>
+                            </DockPanel>
+
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left">B:</Label>
+                                <TextBox Name="txtboxSendB">2</TextBox>
+                            </DockPanel>
+
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left">C:</Label>
+                                <TextBox Name="txtboxSendC">3</TextBox>
+                            </DockPanel>
+
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left">D:</Label>
+                                <TextBox Name="txtboxSendD">4</TextBox>
+                            </DockPanel>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left">E:</Label>
+                                <TextBox Name="txtboxSendE">5</TextBox>
+                            </DockPanel>
+
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left">N:</Label>
+                                <TextBox Name="txtboxSendN">6</TextBox>
+                            </DockPanel>
+
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left">F:</Label>
+                                <TextBox Name="txtboxSendF">7</TextBox>
+                            </DockPanel>
+
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left">G:</Label>
+                                <TextBox Name="txtboxSendG">8</TextBox>
+                            </DockPanel>
+
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left">H:</Label>
+                                <TextBox Name="txtboxSendH">9</TextBox>
+                            </DockPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Net Configurations">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left">IP:</Label>
+                                <TextBox Name="txtboxSendIP">192.168.99.150</TextBox>
+                            </DockPanel>
+
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left">Mask:</Label>
+                                <TextBox Name="txtboxSendMask">255.255.255.0</TextBox>
+                            </DockPanel>
+
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left">Gateway:</Label>
+                                <TextBox Name="txtboxSendGW">192.168.99.1</TextBox>
+                            </DockPanel>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left">DNS1:</Label>
+                                <TextBox Name="txtboxSendDNS1">192.168.99.0</TextBox>
+                            </DockPanel>
+
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left">DNS2:</Label>
+                                <TextBox Name="txtboxSendDNS2">192.168.99.0</TextBox>
+                            </DockPanel>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+                            <Label>portTCP:</Label>
+                            <TextBox Name="txtboxSendPortTCP">4000</TextBox>
+
+                            <Label>portUDP:</Label>
+                            <TextBox Name="txtboxSendPortUDP">3000</TextBox>
+
+                            <Label>portRemUDP:</Label>
+                            <TextBox Name="txtboxSendRemPortUDP">2000</TextBox>
+                        </StackPanel>
+
+                        <DockPanel Margin="0 0 0 5">
+                            <Label DockPanel.Dock="Left">RemIP:</Label>
+                            <TextBox Name="txtboxSendRemIP">192.168.99.185</TextBox>
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Other Configurations" Margin="0 10 0 10">
+                    <StackPanel>
+                        <Label HorizontalAlignment="Center">Amperage: iMin = 4; IMax = 20; iOut = 10</Label>
+                        <Label HorizontalAlignment="Center">isUDP_Enable = 255; cb = 11; ci = 12; p_term = 13; i_term = 14; d_term = 15</Label>
+                        <Label HorizontalAlignment="Center">P = 5; I = 6; D = 7; Dump_i = 10000; out = 20000; i_out = 30000; referens = 40000f</Label>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label>Output_I:</Label>
+                            <TextBox Name="txtboxSendOutputI">10.5</TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
+                <Button>Change Data</Button>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Recieved info" Grid.Column="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label>Concentration: </Label>
+                    <TextBlock Name="txtblockConc"></TextBlock>
+                </StackPanel>
+
+                <GroupBox Header="Parametres" Margin="0 5 0 5">
+                    <UniformGrid>
+                        <DockPanel>
+                            <Label DockPanel.Dock="Left">A:</Label>
+                            <TextBlock Name="txtblockA"></TextBlock>
+                        </DockPanel>
+
+                        <DockPanel>
+                            <Label DockPanel.Dock="Left">B:</Label>
+                            <TextBlock Name="txtblockB"></TextBlock>
+                        </DockPanel>
+
+                        <DockPanel>
+                            <Label DockPanel.Dock="Left">C:</Label>
+                            <TextBlock Name="txtblockC"></TextBlock>
+                        </DockPanel>
+
+                        <DockPanel>
+                            <Label DockPanel.Dock="Left">D:</Label>
+                            <TextBlock Name="txtblockD"></TextBlock>
+                        </DockPanel>
+                            
+                        <DockPanel>
+                            <Label DockPanel.Dock="Left">E:</Label>
+                            <TextBlock Name="txtblockE"></TextBlock>
+                        </DockPanel>
+
+                        <DockPanel>
+                            <Label DockPanel.Dock="Left">N:</Label>
+                            <TextBlock Name="txtblockN"></TextBlock>
+                        </DockPanel>
+
+                        <DockPanel>
+                            <Label DockPanel.Dock="Left">F:</Label>
+                            <TextBlock Name="txtblockF"></TextBlock>
+                        </DockPanel>
+
+                        <DockPanel>
+                            <Label DockPanel.Dock="Left">G:</Label>
+                            <TextBlock Name="txtblockG"></TextBlock>
+                        </DockPanel>
+
+                        <DockPanel>
+                            <Label DockPanel.Dock="Left">H:</Label>
+                            <TextBlock Name="txtblockH"></TextBlock>
+                        </DockPanel>
+                    </UniformGrid>
+                </GroupBox>
+
+                <GroupBox Header="Net Configurations">
+                    <UniformGrid>
+
+                        <DockPanel>
+                            <Label DockPanel.Dock="Left">IP:</Label>
+                            <TextBlock Name="txtblockIP"></TextBlock>
+                        </DockPanel>
+
+                        <DockPanel>
+                            <Label DockPanel.Dock="Left">Mask:</Label>
+                            <TextBlock Name="txtblockMask"></TextBlock>
+                        </DockPanel>
+
+                        <DockPanel>
+                            <Label DockPanel.Dock="Left">GateWay:</Label>
+                            <TextBlock Name="txtblockGT"></TextBlock>
+                        </DockPanel>
+
+                        <DockPanel>
+                            <Label DockPanel.Dock="Left">DNS1:</Label>
+                            <TextBlock Name="txtblockDNS1"></TextBlock>
+                        </DockPanel>
+
+                        <Label>DNS2:</Label>
+                        <TextBlock Name="txtblockDNS2"></TextBlock>
+                        
+                        <WrapPanel>
+                            <Label>portTCP:</Label>
+                            <Label Name="txtblockPortTCP"></Label>
+                        </WrapPanel>
+
+                        <WrapPanel>
+                            <Label>portUDP:</Label>
+                            <Label Name="txtblockPortUDP"></Label>
+                        </WrapPanel>
+
+                        <WrapPanel>
+                            <Label>remPortUDP:</Label>
+                            <Label Name="txtblockRemPortUDP"></Label>
+                        </WrapPanel>
+                        
+                        <Label DockPanel.Dock="Left">Remove IP:</Label>
+                        <Label Name="txtblockRemIP"></Label>
+                    </UniformGrid>
+                </GroupBox>
+
+                <GroupBox Header="Other Configurations" Margin="0 5 0 5">
+                    <UniformGrid>
+                        <Label>iMin:</Label>
+                        <Label Name="txtblockI_Min"></Label>
+                        <Label>iMax:</Label>
+                        <Label Name="txtblockI_Max"></Label>
+                        <Label>iTrowel:</Label>
+                        <Label Name="txtblockI_trowel"></Label>
+                        <Label>iRevers:</Label>
+                        <Label Name="txtblockI_revers"></Label>
+                        <Label>Period_Answer:</Label>
+                        <Label Name="txtblockPer_Answer"></Label>
+                        
+                    </UniformGrid>
+                </GroupBox>
+
+                <GroupBox Header="PID Configurations" Margin="0 5 0 5">
+                    <UniformGrid>
+                        <DockPanel>
+                            <Label>P:</Label>
+                            <TextBlock Name="txtblock_P"></TextBlock>
+                        </DockPanel>
+
+                        <DockPanel>
+                            <Label>I:</Label>
+                            <TextBlock Name="txtblock_I"></TextBlock>
+                        </DockPanel>
+
+                        <DockPanel>
+                            <Label>D:</Label>
+                            <TextBlock Name="txtblock_D"></TextBlock>
+                        </DockPanel>
+                    </UniformGrid>
+                </GroupBox>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>

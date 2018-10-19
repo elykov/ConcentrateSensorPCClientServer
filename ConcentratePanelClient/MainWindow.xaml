@@ -1,0 +1,701 @@
+﻿<Window x:Class="ConcentratePanelClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConcentratePanelClient"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="1100">
+
+    <Window.Resources>
+        <Style x:Key="baseStyle">
+            <Setter Property="Control.FontSize" Value="14"></Setter>
+            <Setter Property="Control.FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="Control.Margin" Value="10 5"></Setter>
+        </Style>
+
+        <Style TargetType="Label" BasedOn="{StaticResource baseStyle}">
+        </Style>
+
+        <Style TargetType="TextBox" BasedOn="{StaticResource baseStyle}">
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>    
+            <ColumnDefinition></ColumnDefinition>    
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Header="Панель">
+            <DockPanel>
+                <GroupBox Header="Подключение" DockPanel.Dock="Top">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        
+                        <Grid DockPanel.Dock="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label>IP:</Label>
+                            <TextBox Name="textBoxConnIP" Grid.Column="1">192.168.99.185</TextBox>
+                        </Grid>
+
+                        <Grid DockPanel.Dock="Top" Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label>Порт:</Label>
+                            <TextBox Name="textBoxConnPort" Grid.Column="1">4000</TextBox>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Сетевые настройки панели" DockPanel.Dock="Top">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label>IP:</Label>
+                            <TextBox Name="textBoxPanIP" Grid.Column="1"></TextBox>
+                        </Grid>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label>Маска:</Label>
+                            <TextBox Name="textBoxPanMask" Grid.Column="1"></TextBox>
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label>Шлюз:</Label>
+                            <TextBox Name="textBoxPanGW" Grid.Column="1"></TextBox>
+                        </Grid>
+
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label>DNS1:</Label>
+                            <TextBox Name="textBoxPanDNS1" Grid.Column="1"></TextBox>
+                        </Grid>
+
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label>DNS2:</Label>
+                            <TextBox Name="textBoxPanDNS2" Grid.Column="1"></TextBox>
+                        </Grid>
+
+                        <Grid Grid.Row="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label>Panel remove IP:</Label>
+                            <TextBox Name="textBoxPanRemIP" Grid.Column="1"></TextBox>
+                        </Grid>
+                        
+                        <TextBlock Grid.Row="6"
+                           Style="{StaticResource baseStyle}" 
+                           FontSize="16" Margin="5 5">
+                            При изменении сетевых настроек панели возможно потребуется переподключение.
+                        </TextBlock>
+                    </Grid>
+                </GroupBox>
+
+                <TextBlock Style="{StaticResource baseStyle}" 
+                           FontSize="16" Margin="5 15" 
+                           DockPanel.Dock="Top"
+                           Name="textBlockConnectState">
+                    Состояние подключения к датчику: Отключено
+                </TextBlock>
+
+                <Button Name="buttonConnect" 
+                        Margin="40 20"
+                        Style="{StaticResource baseStyle}" 
+                        Click="ButtonConnect_Click"
+                        FontSize="20">
+                    Подключиться
+                </Button>
+            </DockPanel>
+        </GroupBox>
+
+        <GroupBox Header="Датчик" Grid.Column="1">
+            <DockPanel>
+                <Grid DockPanel.Dock="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Name="buttonSend"
+                        Margin="10"
+                        Click="buttonSend_Click">
+                        Send</Button>
+
+                    <Button Name="buttonCopy" Grid.Column="1"
+                        Margin="10"
+                        Click="buttonCopy_Click">
+                        Copy all</Button>
+                </Grid>
+                 
+                <TabControl>
+                    <TabItem Header="NetworkData">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>IP:</Label>
+                                <Label Name="labelDatIP" Grid.Column="1">_</Label>
+                                <TextBox Name="textBoxDatIP" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>DatMask:</Label>
+                                <Label Name="labelDatMask" Grid.Column="1">_</Label>
+                                <TextBox Name="textBoxDatMask" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>DatGW:</Label>
+                                <Label Name="labelDatGW" Grid.Column="1">_</Label>
+                                <TextBox Name="textBoxDatGW" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>DatDNS1:</Label>
+                                <Label Name="labelDatDNS1" Grid.Column="1">_</Label>
+                                <TextBox Name="textBoxDatDNS1" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>DatDNS2:</Label>
+                                <Label Name="labelDatDNS2" Grid.Column="1">_</Label>
+                                <TextBox Name="textBoxDatDNS2" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>PortTCP:</Label>
+                                <Label Name="labelPortTCP" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>PortUDP:</Label>
+                                <Label Name="labelPortUDP" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>RemPortUDP:</Label>
+                                <Label Name="labelRemPortUDP" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>RemIPUDP:</Label>
+                                <Label Name="labelRemIPUDP" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>IsUDP_Enable:</Label>
+                                <Label Name="labelIsUDP_Enable" Grid.Column="1">_</Label>
+                            </Grid>
+
+                        </StackPanel>
+
+                    </TabItem>
+                    
+                    <TabItem Header="Parametres">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Parameter A:</Label>
+                                <Label Name="labelParameterA" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxParameterA" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Parameter B:</Label>
+                                <Label Name="labelParameterB" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxParameterB" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Parameter C:</Label>
+                                <Label Name="labelParameterC" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxParameterC" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Parameter D:</Label>
+                                <Label Name="labelParameterD" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxParameterD" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Parameter E:</Label>
+                                <Label Name="labelParameterE" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxParameterE" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Parameter N:</Label>
+                                <Label Name="labelParameterN" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxParameterN" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Parameter F:</Label>
+                                <Label Name="labelParameterF" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxParameterF" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Parameter G:</Label>
+                                <Label Name="labelParameterG" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxParameterG" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Parameter H:</Label>
+                                <Label Name="labelParameterH" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxParameterH" Grid.Column="2"></TextBox>
+                            </Grid>
+                        </StackPanel>
+                    </TabItem>
+
+                    <TabItem Header="Changable data">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>I_Trowel:</Label>
+                                <Label Name="labelI_Trowel" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxI_Trowel" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>I_Revers:</Label>
+                                <Label Name="labelI_Revers" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxI_Revers" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Dump:</Label>
+                                <Label Name="labelDump" Grid.Column="1">0.00</Label>
+                                <TextBox Name="textBoxDump" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Period_Answer:</Label>
+                                <Label Name="labelPeriod_Answer" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxPeriod_Answer" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>P(Pid):</Label>
+                                <Label Name="labelPidP" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxPidP" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>I(Pid):</Label>
+                                <Label Name="labelPidI" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxPidI" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>D(Pid):</Label>
+                                <Label Name="labelPidD" Grid.Column="1">0</Label>
+                                <TextBox Name="textBoxPidD" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Dump_i:</Label>
+                                <Label Name="labelDump_i" Grid.Column="1">0.00</Label>
+                                <TextBox Name="textBoxDump_i" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Задание:</Label>
+                                <Label Name="labelReferens" Grid.Column="1">0.00</Label>
+                                <TextBox Name="textBoxReferens" Grid.Column="2"></TextBox>
+                            </Grid>
+
+                            <!--<Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>:</Label>
+                                <Label Name="label" Grid.Column="1">0.00</Label>
+                                <TextBox Name="textBox" Grid.Column="2"></TextBox>
+                            </Grid>-->
+                        </StackPanel>
+                    </TabItem>
+
+                    <TabItem Header="Notchangable data 1">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>C:</Label>
+                                <Label Name="labelC" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Cb:</Label>
+                                <Label Name="labelCb" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Ci:</Label>
+                                <Label Name="labelCi" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Up:</Label>
+                                <Label Name="labelUp" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Down:</Label>
+                                <Label Name="labelDown" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Sum:</Label>
+                                <Label Name="labelSum" Grid.Column="1">0.00</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>DumpSum:</Label>
+                                <Label Name="labelDumpSum" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>MinI:</Label>
+                                <Label Name="labelMinI" Grid.Column="1">0.00</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>MaxI:</Label>
+                                <Label Name="labelMaxI" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <!--<Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>?:</Label>
+                                <Label Name="labelQuestion" Grid.Column="1">_</Label>
+                            </Grid>-->
+                        </StackPanel>
+                    </TabItem>
+
+                    <TabItem Header="Notchangable data 2">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>P_term:</Label>
+                                <Label Name="labelP_term" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>I_term:</Label>
+                                <Label Name="labelI_term" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>D_term:</Label>
+                                <Label Name="labelD_term" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>out:</Label>
+                                <Label Name="labelOut" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>I_out:</Label>
+                                <Label Name="labelI_Out" Grid.Column="1">_</Label>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label>Output_I:</Label>
+                                <Label Name="labelOutput_I" Grid.Column="1">_</Label>
+                            </Grid>
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+            </DockPanel>
+        </GroupBox>
+    </Grid>
+</Window>
